@@ -8,6 +8,7 @@ const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
 
 function ToastPlayground() {
   const [messageContent, setMessageContent] = React.useState("");
+  const [variantSelected, setVariantSelected] = React.useState('notice');
   return (
     <div className={styles.wrapper}>
       <header>
@@ -37,15 +38,22 @@ function ToastPlayground() {
             <div
               className={`${styles.inputWrapper} ${styles.radioWrapper}`}
             >
-              <label htmlFor="variant-notice">
-                <input
-                  id="variant-notice"
-                  type="radio"
-                  name="variant"
-                  value="notice"
-                />
-                notice
-              </label>
+
+              {VARIANT_OPTIONS.map((variant)=>(
+                <label htmlFor={`variant-${variant}`} >
+                  <input
+                    id={`variant-${variant}`}
+                    type="radio"
+                    name="variant"
+                    value={variant}
+                    checked={variantSelected === variant}
+                    onChange={event => {
+                      setVariantSelected(event.target.value)
+                    }}
+                  />
+                  {variant}
+                </label>
+              ))}
 
               {/* TODO Other Variant radio buttons here */}
             </div>
