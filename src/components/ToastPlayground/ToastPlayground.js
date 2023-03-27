@@ -40,7 +40,7 @@ function ToastPlayground() {
             >
 
               {VARIANT_OPTIONS.map((variant)=>(
-                <label htmlFor={`variant-${variant}`} >
+                <label htmlFor={`variant-${variant}`} key={variant}>
                   <input
                     id={`variant-${variant}`}
                     type="radio"
