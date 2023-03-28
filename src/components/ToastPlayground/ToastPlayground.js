@@ -33,7 +33,7 @@ function ToastPlayground() {
       </header>
 
       {isToastVisible && <Toast messageContent={messageContent} variantSelected={variantSelected}
-                                Icon={ICONS_BY_VARIANT[variantSelected]} X={X} />}
+                                Icon={ICONS_BY_VARIANT[variantSelected]} X={X} isToastVisible={isToastVisible} setIsToastVisible={setIsToastVisible} />}
       <div className={styles.controlsWrapper}>
         <form onSubmit={event => {
           event.preventDefault();

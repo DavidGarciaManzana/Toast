@@ -7,7 +7,7 @@ import styles from './Toast.module.css';
 
 
 
-function Toast({messageContent,variantSelected,Icon,X}) {
+function Toast({messageContent,variantSelected,Icon,X,isToastVisible,setIsToastVisible}) {
   // console.log(icon)
   return (
     <div className={`${styles.toast} ${styles[variantSelected]}`}>
@@ -17,7 +17,7 @@ function Toast({messageContent,variantSelected,Icon,X}) {
       <p className={styles.content}>
         {messageContent}
       </p>
-      <button className={styles.closeButton}>
+      <button className={styles.closeButton} onClick={()=>{setIsToastVisible(!isToastVisible)}}>
         <X size={24} />
         <VisuallyHidden>Dismiss message</VisuallyHidden>
       </button>
