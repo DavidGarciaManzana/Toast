@@ -3,32 +3,32 @@ import React from "react";
 import Button from "../Button";
 
 import styles from "./ToastPlayground.module.css";
-import Toast from "../Toast";
-import {
-  AlertOctagon,
-  AlertTriangle,
-  CheckCircle,
-  Info,
-  X
-} from "react-feather";
+// import Toast from "../Toast";
+
+
+import ToastShelf from "../ToastShelf";
+// import toast from "../Toast";
 
 const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
-const ICONS_BY_VARIANT = {
-  notice: Info,
-  warning: AlertTriangle,
-  success: CheckCircle,
-  error: AlertOctagon,
-  close: X
-};
+
 
 function ToastPlayground() {
-  // console.log(ICONS_BY_VARIANT["notice"])
   const [messageContent, setMessageContent] = React.useState("");
-  const [variantSelected, setVariantSelected] = React.useState("notice");
-  const [isToastVisible, setIsToastVisible] = React.useState(false);
+  const [variant, setVariant] = React.useState("notice");
+  // const [isToastVisible, setIsToastVisible] = React.useState(false);
+  const [toasts, setToasts] = React.useState([]);
 
-  function handleDismiss() {
-    setIsToastVisible(false);
+  // function handleDismiss() {
+  //   setIsToastVisible(false);
+  // }
+
+  function addToTheToasts(newToast) {
+
+    if (toasts.length > 0) {
+      setToasts([...toasts, newToast]);
+    } else {
+      setToasts([newToast]);
+    }
   }
 
   return (
@@ -38,13 +38,16 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      {isToastVisible && <Toast variantSelected={variantSelected}
-                                icons={ICONS_BY_VARIANT}
-                                handleDismiss={handleDismiss}>{messageContent}</Toast>}
+      {/*{isToastVisible && <Toast variant={variant} handleDismiss={handleDismiss}>{messageContent}</Toast>}*/}
+
+      <ToastShelf toasts={toasts} setToasts={setToasts} />
       <div className={styles.controlsWrapper}>
+
         <form onSubmit={event => {
           event.preventDefault();
-          setIsToastVisible(!isToastVisible);
+          addToTheToasts([variant, messageContent,crypto.randomUUID()]);
+          setMessageContent("");
+          setVariant(VARIANT_OPTIONS[0])
         }}>
           <div className={styles.row}>
             <label
@@ -55,9 +58,10 @@ function ToastPlayground() {
               Message
             </label>
             <div className={styles.inputWrapper}>
-              <textarea id="message" className={styles.messageInput} value={messageContent} onChange={event => {
-                setMessageContent(event.target.value);
-              }} />
+              <textarea id="message" className={styles.messageInput} value={messageContent}
+                        onChange={event => {
+                          setMessageContent(event.target.value);
+                        }} />
             </div>
           </div>
 
@@ -67,19 +71,19 @@ function ToastPlayground() {
               className={`${styles.inputWrapper} ${styles.radioWrapper}`}
             >
 
-              {VARIANT_OPTIONS.map((variant) => (
-                <label htmlFor={`variant-${variant}`} key={variant}>
+              {VARIANT_OPTIONS.map((option) => (
+                <label htmlFor={`variant-${option}`} key={option}>
                   <input
-                    id={`variant-${variant}`}
+                    id={`variant-${option}`}
                     type="radio"
                     name="variant"
-                    value={variant}
-                    checked={variantSelected === variant}
+                    value={option}
+                    checked={variant === option}
                     onChange={event => {
-                      setVariantSelected(event.target.value);
+                      setVariant(event.target.value);
                     }}
                   />
-                  {variant}
+                  {option}
                 </label>
               ))}
 
