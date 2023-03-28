@@ -17,7 +17,8 @@ const ICONS_BY_VARIANT = {
   notice: Info,
   warning: AlertTriangle,
   success: CheckCircle,
-  error: AlertOctagon
+  error: AlertOctagon,
+  close: X
 };
 
 function ToastPlayground() {
@@ -25,6 +26,11 @@ function ToastPlayground() {
   const [messageContent, setMessageContent] = React.useState("");
   const [variantSelected, setVariantSelected] = React.useState("notice");
   const [isToastVisible, setIsToastVisible] = React.useState(false);
+
+  function handleDismiss() {
+    setIsToastVisible(false);
+  }
+
   return (
     <div className={styles.wrapper}>
       <header>
@@ -32,8 +38,9 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      {isToastVisible && <Toast messageContent={messageContent} variantSelected={variantSelected}
-                                Icon={ICONS_BY_VARIANT[variantSelected]} X={X} isToastVisible={isToastVisible} setIsToastVisible={setIsToastVisible} />}
+      {isToastVisible && <Toast variantSelected={variantSelected}
+                                icons={ICONS_BY_VARIANT}
+                                handleDismiss={handleDismiss}>{messageContent}</Toast>}
       <div className={styles.controlsWrapper}>
         <form onSubmit={event => {
           event.preventDefault();
