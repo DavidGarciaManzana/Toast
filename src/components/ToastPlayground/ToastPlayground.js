@@ -4,10 +4,23 @@ import Button from "../Button";
 
 import styles from "./ToastPlayground.module.css";
 import Toast from "../Toast";
-
+import {
+  AlertOctagon,
+  AlertTriangle,
+  CheckCircle,
+  Info,
+  X,
+} from 'react-feather';
 const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
+const ICONS_BY_VARIANT = {
+  notice: Info,
+  warning: AlertTriangle,
+  success: CheckCircle,
+  error: AlertOctagon,
+};
 
 function ToastPlayground() {
+  // console.log(ICONS_BY_VARIANT["notice"])
   const [messageContent, setMessageContent] = React.useState("");
   const [variantSelected, setVariantSelected] = React.useState('notice');
   return (
@@ -17,7 +30,7 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      <Toast messageContent={messageContent}></Toast>
+      <Toast messageContent={messageContent} variantSelected={variantSelected} Icon={ICONS_BY_VARIANT[variantSelected]} X={X}></Toast>
       <div className={styles.controlsWrapper}>
         <form>
           <div className={styles.row}>

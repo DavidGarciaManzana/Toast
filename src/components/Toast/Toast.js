@@ -1,28 +1,18 @@
 import React from 'react';
-import {
-  AlertOctagon,
-  AlertTriangle,
-  CheckCircle,
-  Info,
-  X,
-} from 'react-feather';
+
 
 import VisuallyHidden from '../VisuallyHidden';
 
 import styles from './Toast.module.css';
 
-const ICONS_BY_VARIANT = {
-  notice: Info,
-  warning: AlertTriangle,
-  success: CheckCircle,
-  error: AlertOctagon,
-};
 
-function Toast({messageContent}) {
+
+function Toast({messageContent,variantSelected,Icon,X}) {
+  // console.log(icon)
   return (
-    <div className={`${styles.toast} ${styles.notice}`}>
+    <div className={`${styles.toast} ${styles[variantSelected]}`}>
       <div className={styles.iconContainer}>
-        <Info size={24} />
+        <Icon size={24} />
       </div>
       <p className={styles.content}>
         {messageContent}
