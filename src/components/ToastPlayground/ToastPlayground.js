@@ -9,20 +9,22 @@ import {
   AlertTriangle,
   CheckCircle,
   Info,
-  X,
-} from 'react-feather';
+  X
+} from "react-feather";
+
 const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
 const ICONS_BY_VARIANT = {
   notice: Info,
   warning: AlertTriangle,
   success: CheckCircle,
-  error: AlertOctagon,
+  error: AlertOctagon
 };
 
 function ToastPlayground() {
   // console.log(ICONS_BY_VARIANT["notice"])
   const [messageContent, setMessageContent] = React.useState("");
-  const [variantSelected, setVariantSelected] = React.useState('notice');
+  const [variantSelected, setVariantSelected] = React.useState("notice");
+  const [isToastVisible, setIsToastVisible] = React.useState(false);
   return (
     <div className={styles.wrapper}>
       <header>
@@ -30,9 +32,13 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      <Toast messageContent={messageContent} variantSelected={variantSelected} Icon={ICONS_BY_VARIANT[variantSelected]} X={X}></Toast>
+      {isToastVisible && <Toast messageContent={messageContent} variantSelected={variantSelected}
+                                Icon={ICONS_BY_VARIANT[variantSelected]} X={X} />}
       <div className={styles.controlsWrapper}>
-        <form>
+        <form onSubmit={event => {
+          event.preventDefault();
+          setIsToastVisible(!isToastVisible);
+        }}>
           <div className={styles.row}>
             <label
               htmlFor="message"
@@ -54,7 +60,7 @@ function ToastPlayground() {
               className={`${styles.inputWrapper} ${styles.radioWrapper}`}
             >
 
-              {VARIANT_OPTIONS.map((variant)=>(
+              {VARIANT_OPTIONS.map((variant) => (
                 <label htmlFor={`variant-${variant}`} key={variant}>
                   <input
                     id={`variant-${variant}`}
@@ -63,14 +69,13 @@ function ToastPlayground() {
                     value={variant}
                     checked={variantSelected === variant}
                     onChange={event => {
-                      setVariantSelected(event.target.value)
+                      setVariantSelected(event.target.value);
                     }}
                   />
                   {variant}
                 </label>
               ))}
 
-              {/* TODO Other Variant radio buttons here */}
             </div>
           </div>
 
