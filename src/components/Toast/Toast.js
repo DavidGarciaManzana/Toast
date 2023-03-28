@@ -1,5 +1,5 @@
 import React from "react";
-
+import { ToastContext } from "../ToastProvider";
 
 import VisuallyHidden from "../VisuallyHidden";
 
@@ -19,7 +19,8 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon
 };
 
-function Toast({ variant, removeToast, index, children }) {
+function Toast({ variant, index, children }) {
+  const {removeToast} = React.useContext(ToastContext);
   let Icon = ICONS_BY_VARIANT[variant];
 
   return (
