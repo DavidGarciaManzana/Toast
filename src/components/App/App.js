@@ -9,8 +9,8 @@ function App() {
     <>
       <ToastProvider>
         <ToastPlayground />
+        <Footer />
       </ToastProvider>
-      <Footer />
     </>
   );
 }

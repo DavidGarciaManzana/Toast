@@ -21,6 +21,21 @@ function ToastProvider({ children }) {
     setToasts(newToast);
   }
 
+
+  React.useEffect(() => {
+
+    let eraseAllToasts = (event) => {
+      if (event.code !== "Escape") {
+        return;
+      }
+      setToasts([]);
+    };
+    document.addEventListener("keydown", eraseAllToasts);
+    return () => {
+      document.removeEventListener("keydown", eraseAllToasts);
+    };
+  }, []);
+
   return (
     <ToastContext.Provider value={{
       messageContent,
